@@ -25,12 +25,12 @@ jobs:
             - name: Build Plugin
               run: |
                   mkdir .dist
-                  sperm build --outdir "../../.dist/"
+                  sperm build --outdir ".dist/build"
               
             - name: Copy README.md
               run: |
                   cp README.md .dist/README.md
-
+                  
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v3
               with:
