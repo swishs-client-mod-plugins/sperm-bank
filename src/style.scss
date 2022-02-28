@@ -1,0 +1,154 @@
+/* The below code is licensed under MIT. */
+
+$bg-tertiary: var(--background-tertiary);
+$modifier: var(--background-modifier-accent);
+
+.sperm-bank {
+  &-search {
+    flex: auto;
+    margin-right: 15px;
+    margin-bottom: 6px;
+    background-color: $bg-tertiary;
+    border: solid 2px var(--background-secondary);
+  }
+
+  &-sperm-render {
+    margin-top: 8px;
+    padding-top: 4px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+  }
+
+  &-header {
+    margin-bottom: 10px;
+    padding: 16px 16px 10px 16px;
+
+    // Credits to strencher (stolen from pC-compat)
+    &-menu {
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-display);
+      line-height: 16px;
+      text-transform: uppercase;
+      padding: 5px 0 5px 5px;
+    }
+
+    &-main {
+      padding-top: 15px;
+      padding-left: 10px;
+      padding-bottom: 0px;
+      background-color: $bg-tertiary;
+      box-shadow: 0 1px 0 0 $bg-tertiary, 0 1px 2px 0 $bg-tertiary !important;
+    }
+  }
+
+  &-heading {
+    max-width: 110px;
+    margin-right: 0px;
+    padding-bottom: 6px;
+    transform: scale(0.85);
+  }
+
+  &-tabbar {
+    margin: 0;
+    border-bottom: 0;
+    padding: 10px 20px 0;
+    &-item { font-size: 14px; }
+    &-container { 
+      background-color: $bg-tertiary;
+      border-bottom: 2px solid $modifier;
+    }
+  }
+
+  &-close-button {
+    margin-bottom: 4px;
+  }
+
+  &-flex {
+    overflow: hidden;
+    &-help-icon {
+      width: 17px;
+      opacity: .5;
+      cursor: pointer;
+      padding-left: 0px;
+      &:hover { opacity: 1; }
+      margin: 0px 14px 6px 0px;
+      color: var(--interactive-normal);
+      transition: opacity .2s ease-in-out;
+    }
+  }
+
+  &-import {
+    &-root { width: 45vw; }
+    &-container {
+      display: flex;
+      background-color: $bg-tertiary;
+
+      // forced styles
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+
+    &-item {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(59, 59, 59, 0.4);
+      }
+    }
+
+    &-text {
+      flex-basis: 100%;
+      margin-top: 10px;
+      text-align: center;
+      &:hover { cursor: pointer; }
+    }
+
+    &-icon {
+      flex-basis: 100%;
+      align-self: flex-end;
+      color: var(--header-secondary);
+    }
+  } 
+
+  &-help-markdown {
+    margin-top: 6px;
+    hr {
+      border: 0;
+      height: 2px;
+      margin: 12px 0px 16px 0px;
+      background-color: $modifier;
+    }
+  }
+
+  &-error {
+    height: 264px;
+    border-radius: 12px;
+    background-color: $bg-tertiary;
+  }
+
+  &-popover-icon {
+    margin-bottom: 4px;
+  }
+
+  &-refresh-button {
+    &-container {
+      padding-left: 8px;
+      > div > div > div {
+        display: flex;
+        place-items: center;
+      }
+
+      &:active > div > div > div {
+        transform: translateX(-1px);
+      }
+    }
+
+    &-icon {
+      margin-right: 5px;
+    }
+  }
+}
