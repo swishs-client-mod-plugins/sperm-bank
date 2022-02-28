@@ -43,7 +43,7 @@ interface ContextMenuItemProps {
 }
 
 export default ({ accounts, currentAccount, setCurrentAccount, updateParent }: AccountTabsProps): JSX.Element => (
-  <Scroller.Hide orientation={Scroller.Sizes.HORIZONTAL}
+  <Scroller.Hide orientation={Scroller.Orientations.HORIZONTAL}
     className={pjoin(['tabbar', 'container'], classes.tabBarContainer)}>
     <TabBar
       type={TabBar.Types.TOP}

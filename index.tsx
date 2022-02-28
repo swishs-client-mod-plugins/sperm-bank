@@ -96,16 +96,20 @@ const patchMiniPopover = () => {
   });
 };
 
+let win = (window as any);
 export default () => {
   return {
     onLoad() {
+      // cumcord should do this internally.
+      if (!win.React) win.React = findByProps('createElement', 'useEffect');
+
       patches.push(injectStyles());
       patches.push(patchMiniPopover());
       patches.push(patchHeaderBarContainer());
       patches.push(patchMessageContextMenu());
 
       // for my debugging purposes; UAYOR
-      (window as any).Receptionist = Receptionist;
+      win.Receptionist = Receptionist;
     },
     onUnload() { callArgs(...patches); }
   };

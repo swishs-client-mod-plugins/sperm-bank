@@ -29,7 +29,7 @@ const Scroller = ScrollerComponents.AdvancedScrollerThin;
 
 Object.assign(Scroller, {
   Hide: ScrollerComponents.AdvancedScrollerNone,
-  Sizes: { HORIZONTAL: 'horizontal', VERTICAL: 'vertical' }
+  Orientations: ScrollerComponents.default?.Sizes // IM SORRY THEY'RE WHAT NOW DISCORD????
+    || { HORIZONTAL: 'horizontal', VERTICAL: 'vertical' } // for when discord inevitably changes the ref
 });
-
 export { Modal, ContextMenu, Scroller };
