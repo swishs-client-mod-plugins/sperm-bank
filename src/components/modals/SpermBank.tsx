@@ -1,5 +1,7 @@
 /* The below code is licensed under MIT. */
 
+import { useNest } from '@cumcord/utils';
+import { persist } from '@cumcord/pluginData';
 import { find as findModule, findByProps, findByDisplayName } from '@cumcord/modules/webpack';
 
 import HelpModal from './HelpModal';
@@ -38,6 +40,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
 
   const forceUpdate = React.useState(0)[1];
   const accounts = Receptionist.fetchAccounts();
+  useNest(persist);
   return (
     <Modal transitionState={event.transitionState} className='bank' size={Modal.Sizes.LARGE} style={{ borderRadius: '8px' }}>
       <Flex className={pjoin('flex')} direction={Flex.Direction.VERTICAL} style={{ width: '100%' }}>

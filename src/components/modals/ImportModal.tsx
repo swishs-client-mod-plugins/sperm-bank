@@ -27,6 +27,7 @@ interface BDImportProps {
   setAccount: Function;
 }
 
+const usingFileSave = Receptionist.bank.open;
 export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [account, setAccount] = React.useState('PersonalPins');
 
@@ -47,11 +48,13 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
           <FormTitle className={join('text')}>Import from Holy Notes</FormTitle>
         </div>
         <div className={join('item')} onClick={() => {
+          if (usingFileSave) Receptionist.bank.open();
+
           copyText(JSON.stringify(Receptionist.fetchAccounts()));
           showToast('JSON was copied to your clipboard!', true);
         }}>
           <BankIcon className={join('icon')} height={48} width={48} />
-          <FormTitle className={join('text')}>Export Sperm Bank JSON</FormTitle>
+          <FormTitle className={join('text')}>{usingFileSave ? 'Open' : 'Copy'} Sperm Bank JSON</FormTitle>
         </div>
       </Modal.Content>
     </Modal>

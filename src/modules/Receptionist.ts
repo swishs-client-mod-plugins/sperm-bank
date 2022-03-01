@@ -10,7 +10,7 @@ export enum RefreshType { AVATARS, USERS, MESSAGES, ALL }
 
 export default class Receptionist {
   static fetchAccounts(...exclude: string[]): Accounts {
-    const accounts = { ...persist.ghost.sperms };
+    const accounts = (window['SpermBank']?.sperms || persist.ghost.sperms);
 
     for (let account of exclude)
       delete accounts[account];
@@ -20,6 +20,10 @@ export default class Receptionist {
 
   static fetchFirstAccount() {
     return Object.keys(this.fetchAccounts())?.[0];
+  }
+
+  static get bank() {
+    return window['SpermBank'] || persist.store;
   }
 
   static deposit(account: string, msg: any) {
@@ -46,7 +50,7 @@ export default class Receptionist {
 
     Object.assign(accounts[account], { [message.id]: sperm });
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   static withdraw(account: string, spermId: string) {
@@ -54,7 +58,7 @@ export default class Receptionist {
 
     delete accounts[account][spermId];
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   static transfer(current: string, tranferee: string, sperm: Sperm) {
@@ -64,7 +68,7 @@ export default class Receptionist {
 
     Object.assign(accounts[tranferee], { [sperm.id]: sperm });
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   // static cloneSperm(account: string, sperm: Sperm) {
@@ -72,7 +76,7 @@ export default class Receptionist {
 
   //   Object.assign(accounts[account], { [sperm.id]: sperm });
 
-  //   return persist.ghost.sperms = accounts;
+  //   return this.bank.sperms = accounts;
   // };
 
   static openAccount(name: string) {
@@ -80,7 +84,7 @@ export default class Receptionist {
 
     Object.assign(accounts, { [name]: {} });
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   static closeAccount(name: string) {
@@ -88,7 +92,7 @@ export default class Receptionist {
 
     delete accounts[name];
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   static renameAccount(name: string, newName: string) {
@@ -100,9 +104,8 @@ export default class Receptionist {
 
     delete accounts[name];
 
-    persist.ghost.sperms = accounts;
-
-    return this.moveAccount(newName, index);
+    this.bank.sperms = accounts;
+    this.moveAccount(newName, index);
   }
 
   static moveAccount(name: string, index: number) {
@@ -114,7 +117,7 @@ export default class Receptionist {
 
     array.splice(index, 0, [name, accounts[name]]);
 
-    return persist.ghost.sperms = Object.fromEntries(array);
+    this.bank.sperms = Object.fromEntries(array);
   }
 
   // static cloneAccount(account: string, newAccount: string) {
@@ -122,7 +125,7 @@ export default class Receptionist {
 
   //   Object.assign(accounts, { [newAccount]: { ...accounts[account] } });
 
-  //   return persist.ghost.sperms = accounts;
+  //   return this.bank.sperms = accounts;
   // };
 
   static parsePersonalPins = (account: string, data: string) => {
@@ -157,7 +160,7 @@ export default class Receptionist {
       }
     }
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 
   static parseHolyNotes(data: string) {
@@ -170,7 +173,7 @@ export default class Receptionist {
       Object.assign(accounts[notebook], notebooks[notebook]);
     });
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   }
 
   static async refresh(type: RefreshType) {
@@ -271,6 +274,6 @@ export default class Receptionist {
         await refreshUsers();
     }
 
-    return persist.ghost.sperms = accounts;
+    this.bank.sperms = accounts;
   };
 }

@@ -54,17 +54,13 @@ const Utilities = class {
 };
 
 export const usePersistState = (key: string, initial: any) => {
-  // mandatory check unless i use store but store is slow
-  persist.ghost.options ??= {};
-
-  const [state, _setState] = React.useState(persist.ghost.options[key] || initial);
+  const state = persist.ghost.options?.[key] || initial;
 
   const setState = (value: any) => {
     if (typeof value === 'function')
       value = value(state);
 
-    persist.ghost.options[key] = value;
-    _setState(value);
+    persist.store.options[key] = value;
   };
 
   return [state, setState];
