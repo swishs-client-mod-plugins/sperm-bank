@@ -22,6 +22,9 @@ A feature rich message noting plugin for Cumcord.
 - Hold shift while hovering a message and the deposit button will show up on the MiniPopover
 - EVERYTHING IS FUNNIER!!! ![](https://cdn.discordapp.com/emojis/905992475380969513.png?size=24)
 
+### Alternative Sperm Storage
+If you use kernel you can use [kernel-file-save](https://github.com/swishs-client-mod-plugins/sperm-bank/tree/kernel-file-save) for faster and more reliable sperm saving.
+
 # Preview:
 ![](https://i.imgur.com/JRyv7fV.png)
 
