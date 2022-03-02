@@ -1,7 +1,4 @@
-declare module 'cumcord-tools';
-
 declare const React: typeof import('react');
-
 declare interface ModalEvent {
   onClose: () => void;
   transitionState: number;

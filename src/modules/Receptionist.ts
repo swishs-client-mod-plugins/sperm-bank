@@ -10,7 +10,7 @@ export enum RefreshType { AVATARS, USERS, MESSAGES, ALL }
 
 export default class Receptionist {
   static fetchAccounts(...exclude: string[]): Accounts {
-    const accounts = (window['SpermBank']?.sperms || persist.ghost.sperms);
+    const accounts = { ...window['SpermBank']?.sperms || persist.ghost.sperms };
 
     for (let account of exclude)
       delete accounts[account];
@@ -42,7 +42,7 @@ export default class Receptionist {
         discriminator: message.author.discriminator,
         username: message.author.username,
       },
-      timestamp: message.timestamp,
+      timestamp: message.timestamp.toJSON(),
       attachments: message.attachments,
       embeds: message.embeds,
       reactions: message.reactions
