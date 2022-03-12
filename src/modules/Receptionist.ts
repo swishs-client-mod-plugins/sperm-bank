@@ -42,9 +42,11 @@ export default class Receptionist {
         discriminator: message.author.discriminator,
         username: message.author.username,
       },
-      timestamp: message.timestamp.toJSON(),
       attachments: message.attachments,
-      embeds: message.embeds,
+      timestamp: typeof message.timestamp === 'string' ? message.timestamp : message.timestamp.toJSON(),
+      embeds: message.embeds.map(embed => embed.timestamp ? Object.assign(embed, {
+        timestamp: typeof embed.timestamp === 'string' ? embed.timestamp : embed.timestamp.toJSON()
+      }) : embed),
       reactions: message.reactions
     };
 
