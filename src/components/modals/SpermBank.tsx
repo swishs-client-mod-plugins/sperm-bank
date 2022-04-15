@@ -78,6 +78,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
           </Modal.Header>
           <AccountTabs
             accounts={accounts}
+            holdingDelete={holdingDelete}
             currentAccount={currentAccount}
             setCurrentAccount={setCurrentAccount}
             updateParent={() => forceUpdate(u => ~u)} />

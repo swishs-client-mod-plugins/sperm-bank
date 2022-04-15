@@ -26,6 +26,7 @@ interface AccountTabsProps {
   currentAccount: string;
   updateParent: Function;
   setCurrentAccount: Function;
+  holdingDelete: React.MutableRefObject<boolean>;
 };
 
 interface TabBarItemProps {
@@ -34,6 +35,7 @@ interface TabBarItemProps {
   currentAccount: string;
   updateParent: Function;
   setCurrentAccount: Function;
+  holdingDelete: React.MutableRefObject<boolean>;
 };
 
 interface ContextMenuItemProps {
@@ -42,7 +44,7 @@ interface ContextMenuItemProps {
   setCurrentAccount: Function;
 }
 
-export default ({ accounts, currentAccount, setCurrentAccount, updateParent }: AccountTabsProps): JSX.Element => (
+export default ({ accounts, currentAccount, setCurrentAccount, updateParent, holdingDelete }: AccountTabsProps): JSX.Element => (
   <Scroller.Hide orientation={Scroller.Orientations.HORIZONTAL}
     className={pjoin(['tabbar', 'container'], classes.tabBarContainer)}>
     <TabBar
@@ -55,6 +57,7 @@ export default ({ accounts, currentAccount, setCurrentAccount, updateParent }: A
             index={index}
             account={account}
             updateParent={updateParent}
+            holdingDelete={holdingDelete}
             currentAccount={currentAccount}
             setCurrentAccount={setCurrentAccount} />
       })}
@@ -65,20 +68,7 @@ export default ({ accounts, currentAccount, setCurrentAccount, updateParent }: A
 const type = 'SPERMBANK_TABITEM';
 // for programmers wanting to emulate this: https://react-dnd.github.io/react-dnd/examples/sortable/cancel-on-drop-outside
 // (by the way this specific implementation below will be very slow with many items)
-const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateParent }: TabBarItemProps): JSX.Element => {
-  const holdingDelete = React.useRef(false);
-  React.useEffect(() => {
-    const deleteHandler = (e) => e.key === 'Delete' && (holdingDelete.current = e.type === 'keydown');
-
-    document.addEventListener('keydown', deleteHandler);
-    document.addEventListener('keyup', deleteHandler);
-
-    return () => {
-      document.removeEventListener('keydown', deleteHandler);
-      document.removeEventListener('keyup', deleteHandler);
-    };
-  }, []);
-
+const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateParent, holdingDelete }: TabBarItemProps): JSX.Element => {
   const drop = useDrop({
     accept: type,
     hover({ account: hoverAccount }) {
