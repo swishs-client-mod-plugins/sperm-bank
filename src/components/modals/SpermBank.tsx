@@ -30,6 +30,7 @@ interface RenderSpermsProps {
   searchInput: string;
   closeModal: Function;
   updateParent: Function;
+  holdingDelete: React.MutableRefObject<boolean>;
 }
 
 export enum SortType { DA, MD, DAR, MDR };
@@ -38,9 +39,22 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [searchInput, setSearchInput] = usePersistState('searchInput', '');
   const [currentAccount, setCurrentAccount] = usePersistState('selectedAccount', Receptionist.fetchFirstAccount());
 
+  useNest(persist);
   const forceUpdate = React.useState(0)[1];
   const accounts = Receptionist.fetchAccounts();
-  useNest(persist);
+
+  const holdingDelete = React.useRef(false);
+  React.useEffect(() => {
+    const deleteHandler = (e) => e.key === 'Delete' && (holdingDelete.current = e.type === 'keydown');
+
+    document.addEventListener('keydown', deleteHandler);
+    document.addEventListener('keyup', deleteHandler);
+
+    return () => {
+      document.removeEventListener('keydown', deleteHandler);
+      document.removeEventListener('keyup', deleteHandler);
+    };
+  }, []);
   return (
     <Modal transitionState={event.transitionState} className='bank' size={Modal.Sizes.LARGE} style={{ borderRadius: '8px' }}>
       <Flex className={pjoin('flex')} direction={Flex.Direction.VERTICAL} style={{ width: '100%' }}>
@@ -74,6 +88,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
             account={currentAccount}
             searchInput={searchInput}
             closeModal={event.onClose}
+            holdingDelete={holdingDelete}
             sperms={accounts[currentAccount]}
             updateParent={() => forceUpdate(u => ~u)} />
         </Modal.Content>
@@ -97,7 +112,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   );
 };
 
-const RenderSperms = ({ sperms, account, updateParent, sortType, searchInput, closeModal }: RenderSpermsProps): JSX.Element => {
+const RenderSperms = ({ sperms, account, updateParent, sortType, searchInput, closeModal, holdingDelete }: RenderSpermsProps): JSX.Element => {
   let SpermArray: JSX.Element | JSX.Element[] = (
     ForEachOptimized({
       fallback: <EmptyGraphic />,
@@ -107,7 +122,8 @@ const RenderSperms = ({ sperms, account, updateParent, sortType, searchInput, cl
           account={account}
           sperm={sperms[sperm]}
           closeModal={closeModal}
-          updateParent={updateParent} />
+          updateParent={updateParent}
+          holdingDelete={holdingDelete} />
       )
     })
   );

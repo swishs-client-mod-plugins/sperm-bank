@@ -27,7 +27,7 @@ interface BDImportProps {
   setAccount: Function;
 }
 
-const usingFileSave = Receptionist.bank.open;
+const usingFileSave = typeof Receptionist.bank.open === 'function';
 export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [account, setAccount] = React.useState('PersonalPins');
 

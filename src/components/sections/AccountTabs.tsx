@@ -66,9 +66,9 @@ const type = 'SPERMBANK_TABITEM';
 // for programmers wanting to emulate this: https://react-dnd.github.io/react-dnd/examples/sortable/cancel-on-drop-outside
 // (by the way this specific implementation below will be very slow with many items)
 const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateParent }: TabBarItemProps): JSX.Element => {
-  const isHoldingDelete = React.useRef(false);
+  const holdingDelete = React.useRef(false);
   React.useEffect(() => {
-    const deleteHandler = (e) => e.key === 'Delete' && (isHoldingDelete.current = e.type === 'keydown');
+    const deleteHandler = (e) => e.key === 'Delete' && (holdingDelete.current = e.type === 'keydown');
 
     document.addEventListener('keydown', deleteHandler);
     document.addEventListener('keyup', deleteHandler);
@@ -100,7 +100,7 @@ const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateP
     <TabBar.Item
       id={false} // here so it doesn't bug out tabbar
       onClick={() => {
-        if (isHoldingDelete.current)
+        if (holdingDelete.current)
           return ModalActions.openModal((event) => {
             return (
               <CloseAccount

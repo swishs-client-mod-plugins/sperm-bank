@@ -24,6 +24,7 @@ interface RenderMessageProps {
   closeModal?: Function;
   updateParent?: Function;
   fromDeleteModal?: boolean;
+  holdingDelete: React.MutableRefObject<boolean>;
 };
 
 interface ContextMenuProps {
@@ -33,20 +34,7 @@ interface ContextMenuProps {
   updateParent: Function;
 }
 
-export default ({ sperm, account, updateParent, fromDeleteModal, closeModal }: RenderMessageProps): JSX.Element => {
-  const isHoldingDelete = React.useRef(false);
-  React.useEffect(() => {
-    const deleteHandler = (e) => e.key === 'Delete' && (isHoldingDelete.current = e.type === 'keydown');
-
-    document.addEventListener('keydown', deleteHandler);
-    document.addEventListener('keyup', deleteHandler);
-
-    return () => {
-      document.removeEventListener('keydown', deleteHandler);
-      document.removeEventListener('keyup', deleteHandler);
-    };
-  }, []);
-
+export default ({ sperm, account, updateParent, fromDeleteModal, closeModal, holdingDelete }: RenderMessageProps): JSX.Element => {
   return (
     <ErrorBoundary>
       <ChannelMessage
@@ -69,7 +57,7 @@ export default ({ sperm, account, updateParent, fromDeleteModal, closeModal }: R
         }
         channel={new Channel({ id: 'sperm-bank' })}
         onClick={() => {
-          if (isHoldingDelete.current && !fromDeleteModal) {
+          if (holdingDelete.current && !fromDeleteModal) {
             Receptionist.withdraw(account, sperm.id);
             updateParent();
           }
