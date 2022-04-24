@@ -1,5 +1,7 @@
 /* modified from https://github.com/Cumcord/typings */
 
+type LooseObject = Record<any, any>;
+
 declare module '@cumcord' {
   export function uninject(): void;
   export function cum(cockSize?: number, cumshotStrength?: number): string | Promise<string>;
@@ -29,9 +31,9 @@ declare module '@cumcord/modules/webpack' {
   export function findByProps(...propNames: string[]): any;
   export function findByPropsAll(...propNames: string[]): any[];
   export function findByPrototypes(...protoNames: string[]): any;
-  export function findByDisplayName(displayName: String): any;
   export function findByStrings(...searchStrings: string[]): any;
   export function findByKeywordAll(...searchStrings: string[]): any[];
+  export function findByDisplayName(displayName: String, dexport?: boolean): any;
 }
 
 declare module '@cumcord/modules/common' {
@@ -68,8 +70,8 @@ declare module '@cumcord/modules/internal/nests' {
 }
 
 declare module '@cumcord/plugins' {
-  export const loaded: Object;
-  export const installed: Object;
+  export const loaded: LooseObject;
+  export const installed: LooseObject;
   export function removePlugin(pluginId: string): void;
   export function togglePlugin(pluginId: string): void;
   export function importPlugin(baseUrl: string): Promise<void>;
@@ -80,19 +82,20 @@ declare module '@cumcord/patcher' {
   export function unpatchAllCss(): void;
   export function injectCSS(newCss?: string): void;
   export function findAndPatch(moduleFinder: () => any, patchCallback: Function): Function;
-  export function before(functionName: string, functionParent: Object | Function, callback: (arguments: any[]) => any): () => boolean;
-  export function instead(functionName: string, functionParent: Object | Function, callback: (arguments: any[]) => any): () => boolean;
-  export function after(functionName: string, functionParent: Object | Function, callback: (arguments: any[], returnValue: any) => any): () => boolean;
+  export function before(functionName: string, functionParent: LooseObject | Function, callback: (arguments: any[]) => any): () => boolean;
+  export function instead(functionName: string, functionParent: LooseObject | Function, callback: (arguments: any[]) => any): () => boolean;
+  export function after(functionName: string, functionParent: LooseObject | Function, callback: (arguments: any[], returnValue: any) => any): () => boolean;
 }
 
 declare module '@cumcord/utils' {
   export * as logger from '@cumcord/utils/logger';
-  export function useNest(nest: Object): void;
+  export function useNest(nest: LooseObject): void;
   export function copyText(text: string): void;
   export function getOwnerInstance(elem: any): any;
-  export function getReactInstance(elem: any): Object;
-  export function findInReactTree(tree: any[] | Object, searchFilter: string | ((object: any[] | Object) => boolean)): any;
-  export function findInTree(tree: any[] | Object, searchFilter: string | ((object: any[] | Object) => boolean), settings: { walkable?: any[], ignore: any[], limit?: number; }): any;
+  export function getReactInstance(elem: any): LooseObject;
+  export function findInReactTree(tree: any, searchFilter: string | ((LooseObject: any) => boolean)): any;
+  export function findInTree(tree: any, searchFilter: string | ((LooseObject: any) => boolean), settings: { walkable?: any[], ignore: any[], limit?: number; }): any;
+  export * as default from '@cumcord/utils';
 }
 
 declare module '@cumcord/utils/logger' {

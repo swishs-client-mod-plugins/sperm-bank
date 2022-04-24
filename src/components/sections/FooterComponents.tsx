@@ -24,6 +24,7 @@ interface AccountButtonProps {
 
 interface SortButtonProps {
   sortType: SortType;
+  paginated: boolean;
   setSortType: Function;
 }
 
@@ -32,6 +33,7 @@ export const AccountButton = (args: AccountButtonProps): JSX.Element => {
     return (
       <Button
         color={Button.Colors.GREEN}
+        className={pjoin(['footer', 'button'])}
         onClick={() => ModalActions.openModal((event) => (
           <InputModal
             event={event}
@@ -53,6 +55,7 @@ export const AccountButton = (args: AccountButtonProps): JSX.Element => {
     return (
       <Button
         color={Button.Colors.RED}
+        className={pjoin(['footer', 'button'])}
         onClick={() => ModalActions.openModal((event) => (
           <CloseAccount event={event} {...args} />
         ))}>
@@ -75,8 +78,8 @@ const sortSwitch = (sortType: SortType) => {
   }
 };
 
-export const SortButton = ({ sortType, setSortType }: SortButtonProps) => (
-  <div style={{ display: 'flex', flex: 'auto' }}>
+export const SortButton = ({ sortType, setSortType, paginated }: SortButtonProps) => (
+  <div style={paginated ? { display: 'flex', marginRight: '20px' } : { display: 'flex', flex: 'auto' }}>
     <Flex align={Flex.Align.CENTER} className={classes.quickSelect}>
       <Text className={classes.quickSelectLabel}>Change Sorting:</Text>
       <Popout

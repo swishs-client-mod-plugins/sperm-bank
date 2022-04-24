@@ -24,7 +24,7 @@ interface RenderMessageProps {
   closeModal?: Function;
   updateParent?: Function;
   fromDeleteModal?: boolean;
-  holdingDelete: React.MutableRefObject<boolean>;
+  holdingDelete?: React.MutableRefObject<boolean>;
 };
 
 interface ContextMenuProps {

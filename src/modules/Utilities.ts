@@ -53,7 +53,7 @@ const Utilities = class {
   };
 };
 
-export const usePersistState = (key: string, initial: any) => {
+export const usePersistState = <T>(key: string, initial: T): [T, (value: T) => void] => {
   const state = persist.ghost.options?.[key] || initial;
 
   const setState = (value: any) => {

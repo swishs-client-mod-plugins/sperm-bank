@@ -19,6 +19,17 @@ $modifier: var(--background-modifier-accent);
     padding-bottom: 4px;
   }
 
+  &-footer-button {
+    align-self: center;
+  }
+
+  &-pagnation {
+    flex: 1 1 auto;
+    > div > div {
+      margin-top: 0;
+    }
+  }
+
   &-header {
     margin-bottom: 10px;
     padding: 16px 16px 10px 16px;
@@ -53,8 +64,10 @@ $modifier: var(--background-modifier-accent);
     margin: 0;
     border-bottom: 0;
     padding: 10px 20px 0;
-    &-item { font-size: 14px; }
-    &-container { 
+    &-item {
+      font-size: 14px;
+    }
+    &-container {
       background-color: $bg-tertiary;
       border-bottom: 2px solid $modifier;
     }
@@ -71,7 +84,9 @@ $modifier: var(--background-modifier-accent);
       opacity: .5;
       cursor: pointer;
       padding-left: 0px;
-      &:hover { opacity: 1; }
+      &:hover {
+        opacity: 1;
+      }
       margin: 0px 14px 6px 0px;
       color: var(--interactive-normal);
       transition: opacity .2s ease-in-out;
@@ -79,7 +94,9 @@ $modifier: var(--background-modifier-accent);
   }
 
   &-import {
-    &-root { width: 45vw; }
+    &-root {
+      width: 45vw;
+    }
     &-container {
       display: flex;
       background-color: $bg-tertiary;
@@ -104,7 +121,9 @@ $modifier: var(--background-modifier-accent);
       flex-basis: 100%;
       margin-top: 10px;
       text-align: center;
-      &:hover { cursor: pointer; }
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &-icon {
@@ -112,7 +131,7 @@ $modifier: var(--background-modifier-accent);
       align-self: flex-end;
       color: var(--header-secondary);
     }
-  } 
+  }
 
   &-help-markdown {
     margin-top: 6px;

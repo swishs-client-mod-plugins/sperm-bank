@@ -11,7 +11,7 @@ const classes = findByProps('emptyResultsWrap');
 import { pjoin } from '../../modules/Utilities';
 
 export default class ErrorBoundary extends React.Component<{}, { error: boolean; }> {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = { error: false };

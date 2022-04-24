@@ -16,11 +16,12 @@ import { AccountButton, SortButton } from '../sections/FooterComponents';
 import { pjoin, fuzzySearch, usePersistState } from '../../modules/Utilities';
 
 const Flex = findByDisplayName('Flex');
+const Button = findByProps('DropdownSizes');
 const classes = findByProps('tabBarContainer');
-const Button = findModule(m => m.DropdownSizes);
 const FormTitle = findByDisplayName('FormTitle');
 const HelpIcon = findByDisplayName('HelpCircle');
 const ModalActions = findByProps('openModal', 'openModalLazy');
+const SearchPagination = findByDisplayName('SearchPagination');
 const SearchBar = findModule(m => m.defaultProps?.useKeyboardNavigation);
 
 interface RenderSpermsProps {
@@ -29,6 +30,7 @@ interface RenderSpermsProps {
   sortType: SortType;
   searchInput: string;
   closeModal: Function;
+  selectedPage: number;
   updateParent: Function;
   holdingDelete: React.MutableRefObject<boolean>;
 }
@@ -37,11 +39,19 @@ export enum SortType { DA, MD, DAR, MDR };
 export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [sortType, setSortType] = usePersistState('sortType', SortType.DA);
   const [searchInput, setSearchInput] = usePersistState('searchInput', '');
-  const [currentAccount, setCurrentAccount] = usePersistState('selectedAccount', Receptionist.fetchFirstAccount());
+  const [selectedPage, setSelectedPage] = usePersistState('selectedPage', 1);
+  const [selectedAccount, _setSelectedAccount] = usePersistState('selectedAccount', Receptionist.fetchFirstAccount());
 
-  useNest(persist);
   const forceUpdate = React.useState(0)[1];
   const accounts = Receptionist.fetchAccounts();
+
+  const setSelectedAccount = (state: any) => {
+    setSelectedPage(0);
+    _setSelectedAccount(state);
+
+    // I do not fucking know why this is necessary, but it is.
+    forceUpdate(v => ~v);
+  };
 
   const holdingDelete = React.useRef(false);
   React.useEffect(() => {
@@ -55,6 +65,8 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
       document.removeEventListener('keyup', deleteHandler);
     };
   }, []);
+
+  useNest(persist);
   return (
     <Modal transitionState={event.transitionState} className='bank' size={Modal.Sizes.LARGE} style={{ borderRadius: '8px' }}>
       <Flex className={pjoin('flex')} direction={Flex.Direction.VERTICAL} style={{ width: '100%' }}>
@@ -79,45 +91,55 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
           <AccountTabs
             accounts={accounts}
             holdingDelete={holdingDelete}
-            currentAccount={currentAccount}
-            setCurrentAccount={setCurrentAccount}
+            selectedAccount={selectedAccount}
+            setSelectedAccount={setSelectedAccount}
             updateParent={() => forceUpdate(u => ~u)} />
         </div>
         <Modal.Content>
           <RenderSperms
             sortType={sortType}
-            account={currentAccount}
+            account={selectedAccount}
             searchInput={searchInput}
             closeModal={event.onClose}
+            selectedPage={selectedPage}
             holdingDelete={holdingDelete}
-            sperms={accounts[currentAccount]}
+            sperms={accounts[selectedAccount]}
             updateParent={() => forceUpdate(u => ~u)} />
         </Modal.Content>
       </Flex>
       <Modal.Footer>
         <AccountButton
-          account={currentAccount}
-          setAccount={setCurrentAccount} />
+          account={selectedAccount}
+          setAccount={setSelectedAccount} />
         <Button
           onClick={event.onClose}
           look={Button.Looks.LINK}
           color={Button.Colors.TRANSPARENT}
+          className={pjoin(['footer', 'button'])}
           style={{ paddingLeft: '5px', paddingRight: '10px' }}>
           Cancel
         </Button>
+        <div className={pjoin('pagnation')}>
+          <SearchPagination
+            pageLength={25}
+            changePage={setSelectedPage}
+            offset={(selectedPage - 1) * 25}
+            totalResults={Object.keys(accounts[selectedAccount]).length} />
+        </div>
         <SortButton
           sortType={sortType}
-          setSortType={setSortType} />
+          setSortType={setSortType}
+          paginated={Object.keys(accounts[selectedAccount]).length > 25} />
       </Modal.Footer>
     </Modal>
   );
 };
 
-const RenderSperms = ({ sperms, account, updateParent, sortType, searchInput, closeModal, holdingDelete }: RenderSpermsProps): JSX.Element => {
+const RenderSperms = ({ sperms, account, updateParent, sortType, searchInput, closeModal, holdingDelete, selectedPage }: RenderSpermsProps): JSX.Element => {
   let SpermArray: JSX.Element | JSX.Element[] = (
     ForEachOptimized({
       fallback: <EmptyGraphic />,
-      each: Object.keys(sperms || {}),
+      each: Object.keys(sperms || {}).slice((selectedPage - 1) * 25, selectedPage * 25),
       exec: (sperm) => (
         <RenderMessage
           account={account}

@@ -23,28 +23,28 @@ import { Scroller, ContextMenu } from '../../modules/Modules';
 
 interface AccountTabsProps {
   accounts: Accounts;
-  currentAccount: string;
+  selectedAccount: string;
   updateParent: Function;
-  setCurrentAccount: Function;
+  setSelectedAccount: Function;
   holdingDelete: React.MutableRefObject<boolean>;
 };
 
 interface TabBarItemProps {
   index: number;
   account: string;
-  currentAccount: string;
+  selectedAccount: string;
   updateParent: Function;
-  setCurrentAccount: Function;
+  setSelectedAccount: Function;
   holdingDelete: React.MutableRefObject<boolean>;
 };
 
 interface ContextMenuItemProps {
   event: ModalEvent;
   account: string;
-  setCurrentAccount: Function;
+  setSelectedAccount: Function;
 }
 
-export default ({ accounts, currentAccount, setCurrentAccount, updateParent, holdingDelete }: AccountTabsProps): JSX.Element => (
+export default ({ accounts, selectedAccount, setSelectedAccount, updateParent, holdingDelete }: AccountTabsProps): JSX.Element => (
   <Scroller.Hide orientation={Scroller.Orientations.HORIZONTAL}
     className={pjoin(['tabbar', 'container'], classes.tabBarContainer)}>
     <TabBar
@@ -58,8 +58,8 @@ export default ({ accounts, currentAccount, setCurrentAccount, updateParent, hol
             account={account}
             updateParent={updateParent}
             holdingDelete={holdingDelete}
-            currentAccount={currentAccount}
-            setCurrentAccount={setCurrentAccount} />
+            selectedAccount={selectedAccount}
+            setSelectedAccount={setSelectedAccount} />
       })}
     </TabBar >
   </Scroller.Hide >
@@ -68,7 +68,7 @@ export default ({ accounts, currentAccount, setCurrentAccount, updateParent, hol
 const type = 'SPERMBANK_TABITEM';
 // for programmers wanting to emulate this: https://react-dnd.github.io/react-dnd/examples/sortable/cancel-on-drop-outside
 // (by the way this specific implementation below will be very slow with many items)
-const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateParent, holdingDelete }: TabBarItemProps): JSX.Element => {
+const TabBarItem = ({ index, account, selectedAccount, setSelectedAccount, updateParent, holdingDelete }: TabBarItemProps): JSX.Element => {
   const drop = useDrop({
     accept: type,
     hover({ account: hoverAccount }) {
@@ -85,7 +85,7 @@ const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateP
 
   // this is here because i'm manually styling the tabbar.
   // it is possible to use the native "onItemSelect" prop but it was bugging out for me so i'm not using it
-  const selected = account !== currentAccount || classes.selected;
+  const selected = account !== selectedAccount || classes.selected;
   return (
     <TabBar.Item
       id={false} // here so it doesn't bug out tabbar
@@ -96,20 +96,20 @@ const TabBarItem = ({ index, account, currentAccount, setCurrentAccount, updateP
               <CloseAccount
                 event={event}
                 account={account}
-                setAccount={setCurrentAccount} />
+                setAccount={setSelectedAccount} />
             );
           });
-        setCurrentAccount(account);
+        setSelectedAccount(account);
       }}
       clickableRef={(node) => drag(drop(node?.ref || null))}
       className={pjoin('tabbar-item', classes.tabBarItem, selected)}
-      onContextMenu={(event) => ItemContextMenu({ event, account, setCurrentAccount })}>
+      onContextMenu={(event) => ItemContextMenu({ event, account, setSelectedAccount })}>
       {account}
     </TabBar.Item>
   );
 };
 
-const ItemContextMenu = ({ event, account, setCurrentAccount }: ContextMenuItemProps): void => {
+const ItemContextMenu = ({ event, account, setSelectedAccount }: ContextMenuItemProps): void => {
   ContextMenuActions.openContextMenu(event, () => (
     <ContextMenu onClose={ContextMenuActions.closeContextMenu}>
       <ContextMenu.Item
@@ -120,7 +120,7 @@ const ItemContextMenu = ({ event, account, setCurrentAccount }: ContextMenuItemP
               event={event}
               action={(name: string) => {
                 Receptionist.renameAccount(account, name);
-                setCurrentAccount(name);
+                setSelectedAccount(name);
               }}
               options={{
                 initialInput: account,
@@ -139,7 +139,7 @@ const ItemContextMenu = ({ event, account, setCurrentAccount }: ContextMenuItemP
             <CloseAccount
               event={event}
               account={account}
-              setAccount={setCurrentAccount} />
+              setAccount={setSelectedAccount} />
           ));
         }} />
     </ContextMenu>
