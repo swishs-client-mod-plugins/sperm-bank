@@ -39,17 +39,26 @@ export enum SortType { DA, MD, DAR, MDR };
 export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [sortType, setSortType] = usePersistState('sortType', SortType.DA);
   const [searchInput, setSearchInput] = usePersistState('searchInput', '');
-  const [selectedPage, setSelectedPage] = usePersistState('selectedPage', 1);
+  const [selectedPage, _setSelectedPage] = usePersistState('selectedPage', 1);
   const [selectedAccount, _setSelectedAccount] = usePersistState('selectedAccount', Receptionist.fetchFirstAccount());
 
   const forceUpdate = React.useState(0)[1];
   const accounts = Receptionist.fetchAccounts();
 
-  const setSelectedAccount = (state: any) => {
+  const setSelectedPage = (state: number) => {
+    // ModalContent does not pass refs...
+    document.querySelector(`.${pjoin('scroller')}`)?.scrollTo(0, 0);
+    _setSelectedPage(state);
+
+    // I do not know why this is necessary, but it is.
+    forceUpdate(v => ~v);
+  };
+
+  const setSelectedAccount = (state: string) => {
     setSelectedPage(0);
     _setSelectedAccount(state);
 
-    // I do not fucking know why this is necessary, but it is.
+    // I do not know why this is necessary, but it is.
     forceUpdate(v => ~v);
   };
 
@@ -95,7 +104,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
             setSelectedAccount={setSelectedAccount}
             updateParent={() => forceUpdate(u => ~u)} />
         </div>
-        <Modal.Content>
+        <Modal.Content className={pjoin('scroller')}>
           <RenderSperms
             sortType={sortType}
             account={selectedAccount}
@@ -119,7 +128,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
           style={{ paddingLeft: '5px', paddingRight: '10px' }}>
           Cancel
         </Button>
-        <div className={pjoin('pagnation')}>
+        <div className={pjoin('pagination')}>
           <SearchPagination
             pageLength={25}
             changePage={setSelectedPage}
