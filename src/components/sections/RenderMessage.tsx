@@ -1,15 +1,15 @@
 /* The below source code is licensed under MIT. */
 
-import { findByProps, find as findModule } from '@cumcord/modules/webpack';
+import { findByProps, find as findModule, findByPrototypes } from '@cumcord/modules/webpack';
 
+const User = findByPrototypes('tag');
 const classes = findByProps('cozyMessage');
-const User = findModule(m => m.prototype?.tag);
-const Channel = findModule(m => m.prototype?.getGuildId);
+const Channel = findByPrototypes('getGuildId');
+const Timestamp = findByPrototypes('toDate', 'month');
 const transitionTo = findByProps('transitionTo').transitionTo;
 const ContextMenuActions = findByProps('openContextMenuLazy');
-const Timestamp = findModule(m => m.prototype?.toDate && m.prototype.month);
+const Message = findByPrototypes('getReaction', 'isSystemDM');
 const ChannelMessage = findModule(m => m.type?.displayName === 'ChannelMessage');
-const Message = findModule(m => m.prototype?.getReaction && m.prototype.isSystemDM);
 
 import ErrorBoundary from './ErrorBoundary';
 import Receptionist from '../../modules/Receptionist';

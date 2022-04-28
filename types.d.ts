@@ -1,8 +1,5 @@
 declare const React: typeof import('react');
-declare interface ModalEvent {
-  onClose: () => void;
-  transitionState: number;
-}
+declare type ModalEvent = import('discord-types').ModalEvent;
 
 declare interface Accounts {
   [account: string]: Account;

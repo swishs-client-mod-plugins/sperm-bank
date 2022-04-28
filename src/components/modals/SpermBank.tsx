@@ -42,8 +42,8 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
   const [selectedPage, _setSelectedPage] = usePersistState('selectedPage', 1);
   const [selectedAccount, _setSelectedAccount] = usePersistState('selectedAccount', Receptionist.fetchFirstAccount());
 
-  const forceUpdate = React.useState(0)[1];
   const accounts = Receptionist.fetchAccounts();
+  const forceUpdate = React.useReducer(() => ({}), {})[1];
 
   const setSelectedPage = (state: number) => {
     // ModalContent does not pass refs...
@@ -51,7 +51,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
     _setSelectedPage(state);
 
     // I do not know why this is necessary, but it is.
-    forceUpdate(v => ~v);
+    forceUpdate();
   };
 
   const setSelectedAccount = (state: string) => {
@@ -59,7 +59,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
     _setSelectedAccount(state);
 
     // I do not know why this is necessary, but it is.
-    forceUpdate(v => ~v);
+    forceUpdate();
   };
 
   const holdingDelete = React.useRef(false);
@@ -102,7 +102,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
             holdingDelete={holdingDelete}
             selectedAccount={selectedAccount}
             setSelectedAccount={setSelectedAccount}
-            updateParent={() => forceUpdate(u => ~u)} />
+            updateParent={() => forceUpdate()} />
         </div>
         <Modal.Content className={pjoin('scroller')}>
           <RenderSperms
@@ -113,7 +113,7 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
             selectedPage={selectedPage}
             holdingDelete={holdingDelete}
             sperms={accounts[selectedAccount]}
-            updateParent={() => forceUpdate(u => ~u)} />
+            updateParent={() => forceUpdate()} />
         </Modal.Content>
       </Flex>
       <Modal.Footer>

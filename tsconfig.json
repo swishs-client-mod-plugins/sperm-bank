@@ -9,5 +9,8 @@
     "typeRoots": [
       "types/*.d.ts"
     ],
+    "types": [
+      "./node_modules/cumcord-types"
+    ]
   }
 }

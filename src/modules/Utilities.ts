@@ -1,12 +1,11 @@
 /* The below code is licensed under MIT. */
 
 import Fuse from 'fuse.js';
-import CumcordUtilities from '@cumcord/utils';
 
 import { persist } from '@cumcord/pluginData';
 import { findByProps } from '@cumcord/modules/webpack';
 
-export const { findInReactTree, copyText } = CumcordUtilities;
+export { findInReactTree, copyText } from '@cumcord/utils';
 
 const ToastActions = {
   ...findByProps('showToast'),

@@ -3,6 +3,8 @@
     "fuse.js": "^6.5.3"
   },
   "devDependencies": {
-    "@types/react": "^17.0.39"
+    "@types/react": "^17.0.39",
+    "cumcord-types": "^1.0.0",
+    "discord-types": "^1.2.23"
   }
 }

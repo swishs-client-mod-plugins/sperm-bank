@@ -2,6 +2,8 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/react': ^17.0.39
+  cumcord-types: ^1.0.0
+  discord-types: ^1.2.23
   fuse.js: ^6.5.3
 
 dependencies:
@@ -9,6 +11,8 @@ dependencies:
 
 devDependencies:
   '@types/react': 17.0.39
+  cumcord-types: 1.0.0
+  discord-types: 1.2.23
 
 packages:
 
@@ -16,8 +20,22 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
+  /@types/react-dom/18.0.0:
+    resolution: {integrity: sha512-49897Y0UiCGmxZqpC8Blrf6meL8QUla6eb+BBhn69dTXlmuOlzkfr7HHY/O8J25e1lTUMs+YYxSlVDAaGHCOLg==}
+    dependencies:
+      '@types/react': 18.0.8
+    dev: true
+
   /@types/react/17.0.39:
     resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==}
+    dependencies:
+      '@types/prop-types': 15.7.4
+      '@types/scheduler': 0.16.2
+      csstype: 3.0.10
+    dev: true
+
+  /@types/react/18.0.8:
+    resolution: {integrity: sha512-+j2hk9BzCOrrOSJASi5XiOyBbERk9jG5O73Ya4M0env5Ixi6vUNli4qy994AINcEF+1IEHISYFfIT4zwr++LKw==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
@@ -32,7 +50,40 @@ packages:
     resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
     dev: true
 
+  /cumcord-types/1.0.0:
+    resolution: {integrity: sha512-4WNvnIXrkc0RnVqcFbmNmjLvs1e7dfm04Z9S7xDB3RzikDs4ddfUqCUc3M1CCWol/6o7kK6/rSMMSstNGwzAXQ==}
+    dependencies:
+      '@types/react': 18.0.8
+      '@types/react-dom': 18.0.0
+      nests: 2.3.1
+      spitroast: 1.4.1
+    transitivePeerDependencies:
+      - react
+      - solid-js
+    dev: true
+
+  /discord-types/1.2.23:
+    resolution: {integrity: sha512-KSeJzBwVqYf2N7UsIg0bFeiBRRnr2JJ4JdXZ3AGTjfBIBisqNkiqxg4yNXQ0B9dZhmo7XhTkm+AlIPu68kX2OQ==}
+    dependencies:
+      moment: 2.29.3
+    dev: true
+
   /fuse.js/6.5.3:
     resolution: {integrity: sha512-sA5etGE7yD/pOqivZRBvUBd/NaL2sjAu6QuSaFoe1H2BrJSkH/T/UXAJ8CdXdw7DvY3Hs8CXKYkDWX7RiP5KOg==}
     engines: {node: '>=10'}
     dev: false
+
+  /moment/2.29.3:
+    resolution: {integrity: sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==}
+    dev: true
+
+  /nests/2.3.1:
+    resolution: {integrity: sha512-mq9g10tzsaGbS/c5RUJVwiJVqo89JA/KIYPpBDQlKnyviJ7EDUaboIWsuWx0Abe49nys8MjnB6vK53KF1m6MUQ==}
+    peerDependencies:
+      react: '>=16.8'
+      solid-js: '>=1.0.0'
+    dev: true
+
+  /spitroast/1.4.1:
+    resolution: {integrity: sha512-KezHSgqhV8Jgd5kW27CCwO+31YB9zr9Ldi1OO7I0DPZEl+Ky4EYrCgYSL5CEFIxatQKly8qrmRThzi6cGHQ/EQ==}
+    dev: true

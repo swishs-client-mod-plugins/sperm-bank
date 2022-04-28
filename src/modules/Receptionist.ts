@@ -6,6 +6,8 @@ import { findByProps } from '@cumcord/modules/webpack';
 import { sleep } from './Utilities';
 import { FluxDispatcher } from '@cumcord/modules/common';
 
+const Dispatcher = FluxDispatcher as import('discord-types').FluxDispatcher;;
+
 export enum RefreshType { AVATARS, USERS, MESSAGES, ALL }
 
 export default class Receptionist {
@@ -211,13 +213,13 @@ export default class Receptionist {
 
       await new Promise<void>((resolve) => {
         const unsubAndResolve = () => {
-          FluxDispatcher.unsubscribe('LOAD_MESSAGES_SUCCESS', unsubAndResolve);
-          FluxDispatcher.unsubscribe('LOAD_MESSAGES_FAILURE', unsubAndResolve);
+          Dispatcher.unsubscribe('LOAD_MESSAGES_SUCCESS', unsubAndResolve);
+          Dispatcher.unsubscribe('LOAD_MESSAGES_FAILURE', unsubAndResolve);
           resolve();
         };
 
-        FluxDispatcher.subscribe('LOAD_MESSAGES_SUCCESS', unsubAndResolve);
-        FluxDispatcher.subscribe('LOAD_MESSAGES_FAILURE', unsubAndResolve);
+        Dispatcher.subscribe('LOAD_MESSAGES_SUCCESS', unsubAndResolve);
+        Dispatcher.subscribe('LOAD_MESSAGES_FAILURE', unsubAndResolve);
 
         // discords fetcher isn't that reliable sometimes :)
         setTimeout(resolve, 2000);
