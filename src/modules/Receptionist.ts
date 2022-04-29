@@ -46,7 +46,7 @@ export default class Receptionist {
       },
       attachments: message.attachments,
       timestamp: typeof message.timestamp === 'string' ? message.timestamp : message.timestamp.toJSON(),
-      embeds: message.embeds.map(embed => embed.timestamp ? Object.assign(embed, {
+      embeds: message.embeds.map(embed => embed.timestamp ? Object.assign({}, embed, {
         timestamp: typeof embed.timestamp === 'string' ? embed.timestamp : embed.timestamp.toJSON()
       }) : embed),
       reactions: message.reactions

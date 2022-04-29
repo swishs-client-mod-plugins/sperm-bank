@@ -46,10 +46,10 @@ export default ({ sperm, account, updateParent, fromDeleteModal, closeModal, hol
         )}
         message={
           new Message(
-            Object.assign({ ...sperm }, {
-              author: new User({ ...sperm.author }),
+            Object.assign({}, sperm, {
+              author: new User(sperm.author),
               timestamp: new Timestamp(new Date(sperm.timestamp)),
-              embeds: sperm.embeds.map(embed => embed.timestamp ? Object.assign({ ...embed }, {
+              embeds: sperm.embeds.map(embed => embed.timestamp ? Object.assign({}, embed, {
                 timestamp: new Timestamp(new Date(embed.timestamp))
               }) : embed)
             })

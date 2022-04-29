@@ -105,7 +105,7 @@ export default () => {
       patches.push(patchMessageContextMenu());
 
       // for my debugging purposes; UAYOR
-      (window as any).Receptionist = Receptionist;
+      (window as any).Receptionist = Object.assign({ version: '1.0.0' }, Receptionist);
     },
     onUnload() { callArgs(...patches); }
   };
