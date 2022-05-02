@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/react': ^17.0.39
-  cumcord-types: ^1.0.0
+  cumcord-types: ^1.1.0
   discord-types: ^1.2.23
   fuse.js: ^6.5.3
 
@@ -11,10 +11,28 @@ dependencies:
 
 devDependencies:
   '@types/react': 17.0.39
-  cumcord-types: 1.0.0
+  cumcord-types: 1.1.0
   discord-types: 1.2.23
 
 packages:
+
+  /@babel/runtime/7.17.9:
+    resolution: {integrity: sha512-lSiBBvodq29uShpWGNbgFdKYNiFDo5/HIYsaCEY9ff4sb10x9jizo2+pRrSyF4jKZCXqgzuqBOQKbUm90gQwJg==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: true
+
+  /@types/fbemitter/2.0.32:
+    resolution: {integrity: sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=}
+    dev: true
+
+  /@types/flux/3.1.11:
+    resolution: {integrity: sha512-Aq4UB1ZqAKcPbhB0GpgMw2sntvOh71he9tjz53TLKrI7rw3Y3LxCW5pTYY9IV455hQapm4pmxFjpqlWOs308Yg==}
+    dependencies:
+      '@types/fbemitter': 2.0.32
+      '@types/react': 18.0.8
+    dev: true
 
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
@@ -50,14 +68,20 @@ packages:
     resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
     dev: true
 
-  /cumcord-types/1.0.0:
-    resolution: {integrity: sha512-4WNvnIXrkc0RnVqcFbmNmjLvs1e7dfm04Z9S7xDB3RzikDs4ddfUqCUc3M1CCWol/6o7kK6/rSMMSstNGwzAXQ==}
+  /cumcord-types/1.1.0:
+    resolution: {integrity: sha512-Kwfu2UkKElkCLeVHaoL+YR+k2sy1yuOIkabAVInTVj70Kt4MMq8j35DWmeQ8zE5el7o+U0mdvPTBKBNBUcVXmQ==}
     dependencies:
+      '@types/flux': 3.1.11
       '@types/react': 18.0.8
       '@types/react-dom': 18.0.0
+      discord-types: 1.2.23
+      highlight.js: 11.5.1
       nests: 2.3.1
+      redux: 4.2.0
       spitroast: 1.4.1
+      zustand: 4.0.0-rc.1
     transitivePeerDependencies:
+      - immer
       - react
       - solid-js
     dev: true
@@ -73,6 +97,11 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
+  /highlight.js/11.5.1:
+    resolution: {integrity: sha512-LKzHqnxr4CrD2YsNoIf/o5nJ09j4yi/GcH5BnYz9UnVpZdS4ucMgvP61TDty5xJcFGRjnH4DpujkS9bHT3hq0Q==}
+    engines: {node: '>=12.0.0'}
+    dev: true
+
   /moment/2.29.3:
     resolution: {integrity: sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw==}
     dev: true
@@ -84,6 +113,37 @@ packages:
       solid-js: '>=1.0.0'
     dev: true
 
+  /redux/4.2.0:
+    resolution: {integrity: sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==}
+    dependencies:
+      '@babel/runtime': 7.17.9
+    dev: true
+
+  /regenerator-runtime/0.13.9:
+    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
+    dev: true
+
   /spitroast/1.4.1:
     resolution: {integrity: sha512-KezHSgqhV8Jgd5kW27CCwO+31YB9zr9Ldi1OO7I0DPZEl+Ky4EYrCgYSL5CEFIxatQKly8qrmRThzi6cGHQ/EQ==}
+    dev: true
+
+  /use-sync-external-store/1.1.0:
+    resolution: {integrity: sha512-SEnieB2FPKEVne66NpXPd1Np4R1lTNKfjuy3XdIoPQKYBAFdzbzSZlSn1KJZUiihQLQC5Znot4SBz1EOTBwQAQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dev: true
+
+  /zustand/4.0.0-rc.1:
+    resolution: {integrity: sha512-qgcs7zLqBdHu0PuT3GW4WCIY5SgXdsv30GQMu9Qpp1BA2aS+sNS8l4x0hWuyEhjXkN+701aGWawhKDv6oWJAcw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      use-sync-external-store: 1.1.0
     dev: true

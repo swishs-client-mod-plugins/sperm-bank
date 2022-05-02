@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.39",
-    "cumcord-types": "^1.0.0",
+    "cumcord-types": "^1.1.0",
     "discord-types": "^1.2.23"
   }
 }

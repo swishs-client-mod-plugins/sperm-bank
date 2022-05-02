@@ -133,12 +133,12 @@ export default ({ event }: { event: ModalEvent; }): JSX.Element => {
             pageLength={25}
             changePage={setSelectedPage}
             offset={(selectedPage - 1) * 25}
-            totalResults={Object.keys(accounts[selectedAccount]).length} />
+            totalResults={Object.keys(accounts[selectedAccount] ?? {}).length} />
         </div>
         <SortButton
           sortType={sortType}
           setSortType={setSortType}
-          paginated={Object.keys(accounts[selectedAccount]).length > 25} />
+          paginated={Object.keys(accounts[selectedAccount] ?? {}).length > 25} />
       </Modal.Footer>
     </Modal>
   );
