@@ -3,7 +3,7 @@
 import { findByDisplayName, findByProps, find as findModule } from '@cumcord/modules/webpack';
 
 const Flex = findByDisplayName('Flex');
-const Text = findByDisplayName('Text');
+const Text = findByDisplayName('LegacyText');
 const Popout = findByDisplayName('Popout');
 const classes = findByProps('quickSelectArrow');
 const Button = findModule(m => m.DropdownSizes);
