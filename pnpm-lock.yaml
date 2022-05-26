@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/react': ^17.0.39
-  cumcord-types: ^1.1.0
+  cumcord-types: ^1.3.0
   discord-types: ^1.2.23
   fuse.js: ^6.5.3
 
@@ -11,7 +11,7 @@ dependencies:
 
 devDependencies:
   '@types/react': 17.0.39
-  cumcord-types: 1.1.0
+  cumcord-types: 1.3.0
   discord-types: 1.2.23
 
 packages:
@@ -24,7 +24,7 @@ packages:
     dev: true
 
   /@types/fbemitter/2.0.32:
-    resolution: {integrity: sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=}
+    resolution: {integrity: sha512-Hwq28bBlbmfCgLnNJvjl5ssTrbZCTSblI4vqPpqZrbbEL8vn5l2UivxhlMYfUY7a4SR8UB6RKoLjOZfljqAa6g==}
     dev: true
 
   /@types/flux/3.1.11:
@@ -38,10 +38,17 @@ packages:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
     dev: true
 
-  /@types/react-dom/18.0.0:
-    resolution: {integrity: sha512-49897Y0UiCGmxZqpC8Blrf6meL8QUla6eb+BBhn69dTXlmuOlzkfr7HHY/O8J25e1lTUMs+YYxSlVDAaGHCOLg==}
+  /@types/react-dom/18.0.5:
+    resolution: {integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==}
     dependencies:
       '@types/react': 18.0.8
+    dev: true
+
+  /@types/react/17.0.2:
+    resolution: {integrity: sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==}
+    dependencies:
+      '@types/prop-types': 15.7.4
+      csstype: 3.0.10
     dev: true
 
   /@types/react/17.0.39:
@@ -68,13 +75,13 @@ packages:
     resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
     dev: true
 
-  /cumcord-types/1.1.0:
-    resolution: {integrity: sha512-Kwfu2UkKElkCLeVHaoL+YR+k2sy1yuOIkabAVInTVj70Kt4MMq8j35DWmeQ8zE5el7o+U0mdvPTBKBNBUcVXmQ==}
+  /cumcord-types/1.3.0:
+    resolution: {integrity: sha512-luyw7VzCIIZJjit8ycn4HUJP70b14qb0KF/ILZu62i0CFOdTBRR/sAB/zGMoocx00pv3+oXhT9olZVSk19tzKg==}
     dependencies:
       '@types/flux': 3.1.11
       '@types/react': 18.0.8
-      '@types/react-dom': 18.0.0
-      discord-types: 1.2.23
+      '@types/react-dom': 18.0.5
+      discord-types: 1.3.25
       highlight.js: 11.5.1
       nests: 2.3.1
       redux: 4.2.0
@@ -89,6 +96,13 @@ packages:
   /discord-types/1.2.23:
     resolution: {integrity: sha512-KSeJzBwVqYf2N7UsIg0bFeiBRRnr2JJ4JdXZ3AGTjfBIBisqNkiqxg4yNXQ0B9dZhmo7XhTkm+AlIPu68kX2OQ==}
     dependencies:
+      moment: 2.29.3
+    dev: true
+
+  /discord-types/1.3.25:
+    resolution: {integrity: sha512-0ACInvYFbKij7I5YIuxgbVxIZxcRH4j266YqC3X91Z4hPzeyQoDliOX4FHv5AcoNgD28c5hXzMgHidgVYU0Hkg==}
+    dependencies:
+      '@types/react': 17.0.2
       moment: 2.29.3
     dev: true
 
